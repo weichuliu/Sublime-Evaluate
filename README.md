@@ -49,6 +49,8 @@ Though the it is supposed to work on all OSs / Sublime 2/3, this feature is test
 
 Please kindly report to us if you find an issue. We'd be happy to fix it.
 
+Caveat: If you are using windows, your snippet will be evaluated by `cmd.exe`(awesome!). Windows shell eval is supported as-is. Good luck.
+
 #### Demo
 ![](shell-eval.gif)
 
