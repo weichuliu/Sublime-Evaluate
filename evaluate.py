@@ -80,6 +80,7 @@ class EvaluateCall(threading.Thread):
             try:
                 p = subprocess.Popen(shell_code,
                                     shell=True,
+                                    universal_newlines=True,
                                     stdout=subprocess.PIPE,
                                     stderr=subprocess.STDOUT)
                 # stderr goes to stdout
@@ -88,7 +89,7 @@ class EvaluateCall(threading.Thread):
                 if type(out) == bytes:
                     out = out.decode()
 
-                # Remove the last newline
+                # Remove the LAST newline
                 if out.endswith('\n'):
                     out = out[:-1]
 
