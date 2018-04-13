@@ -5,6 +5,7 @@ import threading
 import math
 import datetime
 import subprocess
+import platform
 
 sublime_version = 2
 
@@ -80,7 +81,6 @@ class EvaluateCall(threading.Thread):
             try:
                 p = subprocess.Popen(shell_code,
                                     shell=True,
-                                    universal_newlines=True,
                                     stdout=subprocess.PIPE,
                                     stderr=subprocess.STDOUT)
                 # stderr goes to stdout
@@ -89,7 +89,12 @@ class EvaluateCall(threading.Thread):
                 if type(out) == bytes:
                     out = out.decode()
 
-                # Remove the LAST newline
+                # translate \r\n to \n on Windows
+                # (I suppose if you are using a real OS, you want to keep output as-is)
+                if platform.system() == 'Windows':
+                    out = out.replace('\r\n', '\n')
+
+                # Trim the LAST newline
                 if out.endswith('\n'):
                     out = out[:-1]
 
